@@ -1,0 +1,10 @@
+node_modules/
+.vscode/
+out/
+
+dscanner.ini
+build
+out.d
+calcLines.sh
+test.ivnt
+danik-only
