@@ -5,8 +5,8 @@ Intuitinv't is the dumbest, least intuitive, least consistent programming langua
 ## Current project state
 There is still a lot of things to do
 
-- [ ] Create a library system
-- [ ] Migrate headers & local array to library system 
+- [x] Create a library system
+- [x] Migrate headers & local array to library system 
 - [ ] Add a lot of functions to the std library
 - [ ] Preprocesor
 - [ ] ...
