@@ -2,11 +2,12 @@
   "dependencies": {
     "@types/node": "^15.12.2",
     "chalk": "^4.1.1",
-    "js-tokens": "^7.0.0"
+    "js-tokens": "^7.0.0",
+    "yaml": "^1.10.2"
   },
-	"scripts": {
-		"test": "npm run build; npm run start test.ivnt && ./build",
-		"build": "tsc",
-		"start": "node out/main.js"
-	}
+  "scripts": {
+    "test": "npm run build; npm run start test.ivnt && ./build",
+    "build": "tsc",
+    "start": "node out/main.js"
+  }
 }

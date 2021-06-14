@@ -1,0 +1,18 @@
+Name: ivnt
+
+Adds: [
+  'writeln',
+  'join',
+  'input',
+  'goodThingsAboutPython',
+  'boolMaker',
+  'intMaker',
+  'mod'
+]
+
+Require:
+  - "ivnt"
+  - "std.stdio : writeln"
+
+Files:
+  - "main.d"

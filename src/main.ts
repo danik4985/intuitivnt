@@ -7,9 +7,11 @@ import { generate } from './generator/generate'
 import { loadCode } from './system/loadCode'
 import { tokenize } from './tokenize'
 import { exit } from './system/exit'
-import { COMPILE_CMD } from './compiler_features/COMPILE_CMD'
+import { ModuleManager } from './compiler_features/ModuleManager'
 
 export const KEEP_D_CODE = true
+export const modules = new ModuleManager(process.cwd() + '/modules')
+
 global.anyErrorLogged = false
 
 if (KEEP_D_CODE) console.time('Compilation to D')
@@ -26,13 +28,16 @@ fs.writeFileSync('out.d', formatCode(HEADERS + source + '\n}'))
 
 if (KEEP_D_CODE) console.timeEnd('Compilation to D')
 
+const COMPILE_CMD =
+	`dmd out.d ${modules.getFiles()} -of="${process.argv[3] || 'build'}" -color=auto 2>&1;`
+
 try {
 	const data = String(cp.execSync(COMPILE_CMD))
 	// console.log(JSON.stringify(data))
 	if (data != '') throw data.trimEnd()
 	exit(0)
 } catch (data) {
-	console.error(data)
+	console.error(data.stdout.toString().slice(0, -1))
 	global.anyErrorLogged = true
 	exit(255)
 }
