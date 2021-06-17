@@ -8,22 +8,30 @@ import { loadCode } from './system/loadCode'
 import { tokenize } from './tokenize'
 import { exit } from './system/exit'
 import { ModuleManager } from './compiler_features/ModuleManager'
+import { Preprocesor } from './compiler_features/preprocesor/Preprocesor'
 
 export const KEEP_D_CODE = true
-export const modules = new ModuleManager(process.cwd() + '/modules')
+export const preprocesor = new Preprocesor()
 
 global.anyErrorLogged = false
 
-if (KEEP_D_CODE) console.time('Compilation to D')
+if (KEEP_D_CODE) {
+	console.time('Compilation to D')
+	global.anyErrorLogged = true
+}
 
 loadCode()
 
 const raw = String(fs.readFileSync(process.argv[2]))
 const fixed = Array.from(raw.split('\n'), i => i = i.trimStart()).join('\n')
-const tokens = tokenize(fixed)
+
+const preprocesed = preprocesor.preprocess(fixed.split('\n'))
+export const modules = new ModuleManager(process.cwd() + '/modules')
+
+const tokens = tokenize(preprocesed.join('\n'))
 const source = generate(tokens)
 
-fs.writeFileSync('out.d', formatCode(HEADERS + source + '\n}'))
+fs.writeFileSync('out.d', formatCode(HEADERS() + source + '\n}'))
 // console.log(`dmd out.d headers/base.d -of=build -color; rm -rf build.o`)
 
 if (KEEP_D_CODE) console.timeEnd('Compilation to D')

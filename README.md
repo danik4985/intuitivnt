@@ -35,6 +35,8 @@ node out/main.js <input file> [output file]
 ## Egg samples
 ### FizzBuzz
 ```
+--- use, "ivnt"
+
 i 𝓲𝓷𝓽 == 0;
 mod3 𝓲𝓷𝓽 == 0;
 mod5 𝓲𝓷𝓽 == 0;
@@ -73,6 +75,8 @@ if(i > 100) = {
 
 ### Truth machine
 ```
+--- use, "ivnt"
+
 text 𝓼𝓽𝓻𝓲𝓷𝓰 == input ();
 num 𝓲𝓷𝓽 == intMaker (text);
 
@@ -129,6 +133,16 @@ const LEGAL_FUNCTION_NAMES: string[] = [
 	'intMaker',
 	'mod'
 ]
+```
+
+Preprocesor:
+```
+--- command, "arg", "arg 2" [...]
+```
+
+Importing libraries
+```
+--- use, "libname"
 ```
 
 *danik, 2021*

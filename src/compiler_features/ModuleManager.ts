@@ -1,5 +1,6 @@
 import * as fs from 'fs'
 import * as YAML from 'yaml'
+import { preprocesor } from '../main'
 
 interface ModuleData {
 	Name: string
@@ -37,6 +38,8 @@ export class ModuleManager {
 
 	private loadModuleData(path: string) {
 		const data: ModuleData = YAML.parse(String(fs.readFileSync(path + '/module.yml')))
+
+		if (!preprocesor.modulesRequired.includes(data.Name)) return
 
 		this.modules.push(data)
 		this.names.push(data.Name)
